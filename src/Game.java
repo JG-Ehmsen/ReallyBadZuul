@@ -15,7 +15,6 @@
  * @author  Michael Kölling and David J. Barnes
  * @version 2011.07.31
  */
-
 public class Game {
 
     private Parser parser;
@@ -43,11 +42,11 @@ public class Game {
         office = new Room("in the computing admin office");
 
         // initialise room exits
-        outside.setExits(null, theater, lab, pub);
-        theater.setExits(null, null, null, outside);
-        pub.setExits(null, outside, null, null);
-        lab.setExits(outside, office, null, null);
-        office.setExits(null, null, null, lab);
+        outside.setExits(null, theater, lab, pub, null, null);
+        theater.setExits(null, null, null, outside, null, null);
+        pub.setExits(null, outside, null, null, null, null);
+        lab.setExits(outside, office, null, null, null, null);
+        office.setExits(null, null, null, lab, null, null);
 
         currentRoom = outside;  // start game outside
     }
@@ -78,7 +77,7 @@ public class Game {
         System.out.println("Type 'help' if you need help.");
         System.out.println();
         printLocationInfo();
-        
+
     }
 
     /**
@@ -136,16 +135,22 @@ public class Game {
         // Try to leave current room.
         Room nextRoom = null;
         if (direction.equals("north")) {
-            nextRoom = currentRoom.northExit;
+            nextRoom = currentRoom.getExit("north");
         }
         if (direction.equals("east")) {
-            nextRoom = currentRoom.eastExit;
+            nextRoom = currentRoom.getExit("east");
         }
         if (direction.equals("south")) {
-            nextRoom = currentRoom.southExit;
+            nextRoom = currentRoom.getExit("south");
         }
         if (direction.equals("west")) {
-            nextRoom = currentRoom.westExit;
+            nextRoom = currentRoom.getExit("west");
+        }
+        if (direction.equals("up")) {
+            nextRoom = currentRoom.getExit("up");
+        }
+        if (direction.equals("down")) {
+            nextRoom = currentRoom.getExit("down");
         }
 
         if (nextRoom == null) {
@@ -159,27 +164,47 @@ public class Game {
     private void printLocationInfo() {
         System.out.println("You are " + currentRoom.getDescription());
         System.out.print("Exits: ");
-        if (currentRoom.northExit != null) {
+        if (currentRoom.getExit("north") != null) {
             System.out.print("north ");
         }
-        if (currentRoom.eastExit != null) {
+        if (currentRoom.getExit("east") != null) {
             System.out.print("east ");
         }
-        if (currentRoom.southExit != null) {
+        if (currentRoom.getExit("south") != null) {
             System.out.print("south ");
         }
-        if (currentRoom.westExit != null) {
+        if (currentRoom.getExit("west") != null) {
             System.out.print("west ");
+        }
+        if (currentRoom.getExit("up") != null) {
+            System.out.print("up ");
+        }
+        if (currentRoom.getExit("down") != null) {
+            System.out.print("down ");
         }
         System.out.println();
     }
 
     /**
+     * Return a description of the room’s exits, for example, "Exits: north
+     * west".
+     *
+     * @return A description of the available exits.
+     */
+    
+    /*public String getExitString() 
+    {
+        
+    }
+    */
+            
+     /**
      * "Quit" was entered. Check the rest of the command to see whether we
      * really quit the game.
      *
      * @return true, if this command quits the game, false otherwise.
      */
+
     private boolean quit(Command command) {
         if (command.hasSecondWord()) {
             System.out.println("Quit what?");
