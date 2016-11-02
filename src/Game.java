@@ -42,11 +42,20 @@ public class Game {
         office = new Room("in the computing admin office");
 
         // initialise room exits
-        outside.setExits(null, theater, lab, pub, null, null);
-        theater.setExits(null, null, null, outside, null, null);
-        pub.setExits(null, outside, null, null, null, null);
-        lab.setExits(outside, office, null, null, null, null);
-        office.setExits(null, null, null, lab, null, null);
+        outside.setExits("west", lab);
+        outside.setExits("east", pub);
+        outside.setExits("north", theater);
+        outside.setExits("south", office);
+        
+        theater.setExits("south", outside);
+        
+        office.setExits("north", outside);
+        
+        lab.setExits("east", outside);
+        
+        pub.setExits("west", outside);
+        
+        
 
         currentRoom = outside;  // start game outside
     }

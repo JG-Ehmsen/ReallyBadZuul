@@ -71,3 +71,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+nbproject/genfiles.properties
+nbproject/build-impl.xml
