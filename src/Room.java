@@ -14,6 +14,7 @@
  * @version 2011.07.31
  */
 import java.util.HashMap;
+import java.util.Set;
 
 public class Room {
 
@@ -30,14 +31,29 @@ public class Room {
      * room or is null (no exit there).
      */
     public void setExits(String direction, Room neighbour) {
-            exits.put(direction, neighbour);
+        exits.put(direction, neighbour);
     }
+
     /**
      * Return the room that is reached if we go from this room in direction
      * "direction "If there is no room in that direction, return null.
      */
     public Room getExit(String direction) {
         return exits.get(direction);
+    }
+
+    public String getExitString() {
+        String returnString = "Exits:";
+        Set<String> keys = exits.keySet();
+        for (String exit : keys) {
+            returnString += " " + exit;
+        }
+        return returnString;
+    }
+    
+    public String getLongDescription()
+    {
+        return "You are " + description + ".\n" + getExitString();
     }
 
     /**
