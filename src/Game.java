@@ -36,6 +36,8 @@ public class Game {
 
         // create the rooms
         outside = new Room("outside the main entrance of the university");
+        outside.addItem("Rock", 5);
+        outside.addItem("Leaf", 1);
         theater = new Room("in a lecture theater");
         pub = new Room("in the campus pub");
         lab = new Room("in a computing lab");

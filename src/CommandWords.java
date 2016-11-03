@@ -39,11 +39,12 @@ public class CommandWords
         return false;
     }
     
-    public void showAll()
+    public String[] getCommandList()
     {
-        for(String command : validCommands){
+        /*for(String command : validCommands){
             System.out.print(command + " ");
         }
-        System.out.println();
+        System.out.println();*/
+        return validCommands;
     }
 }

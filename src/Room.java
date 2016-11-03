@@ -13,13 +13,16 @@
  * @author  Michael Kölling and David J. Barnes
  * @version 2011.07.31
  */
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 public class Room {
 
     private String description;
     private HashMap<String, Room> exits;
+    private List<Item> itemList = new ArrayList<>();
 
     public Room(String description) {
         this.description = description;
@@ -50,10 +53,17 @@ public class Room {
         }
         return returnString;
     }
-    
-    public String getLongDescription()
-    {
-        return "You are " + description + ".\n" + getExitString();
+
+    public String getLongDescription() {
+        String allItems = "";
+        if (itemList.isEmpty()) {
+            return "You are " + description + ".\n" + getExitString() + "\nThere are no items here.";
+        } else {
+            for (Item item : itemList) {
+                allItems = allItems + item;
+            }
+        }
+        return "You are " + description + ".\n" + getExitString() + "\nThe following items are here: " + allItems;
     }
 
     /**
@@ -64,4 +74,8 @@ public class Room {
         return description;
     }
 
+    public void addItem(String name, int weight) {
+        Item e = new Item(name, weight);
+        itemList.add(e);
+    }
 }

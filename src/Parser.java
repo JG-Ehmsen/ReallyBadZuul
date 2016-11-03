@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -32,7 +33,7 @@ public class Parser
     
     public void showCommands()
     {
-        commands.showAll();
+        System.out.println(Arrays.toString(commands.getCommandList()));
     }
 
     /**
