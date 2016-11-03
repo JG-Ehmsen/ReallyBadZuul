@@ -46,16 +46,14 @@ public class Game {
         outside.setExits("east", pub);
         outside.setExits("north", theater);
         outside.setExits("south", office);
-        
+
         theater.setExits("south", outside);
-        
+
         office.setExits("north", outside);
-        
+
         lab.setExits("east", outside);
-        
+
         pub.setExits("west", outside);
-        
-        
 
         currentRoom = outside;  // start game outside
     }
@@ -85,9 +83,8 @@ public class Game {
         System.out.println("World of Zuul is a new, incredibly exciting adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        
+
         System.out.println(currentRoom.getLongDescription());
-        
 
     }
 
@@ -106,7 +103,10 @@ public class Game {
         }
 
         String commandWord = command.getCommandWord();
-        if (commandWord.equals("help")) {
+        if (commandWord.equals("look")){
+            look();
+        }
+        else if (commandWord.equals("help")) {
             printHelp();
         } else if (commandWord.equals("go")) {
             goRoom(command);
@@ -115,6 +115,10 @@ public class Game {
         }
 
         return wantToQuit;
+    }
+
+    private void look() {
+        System.out.println(currentRoom.getLongDescription());
     }
 
     // implementations of user commands:
@@ -127,7 +131,7 @@ public class Game {
         System.out.println("around at the university.");
         System.out.println();
         System.out.println("Your command words are:");
-        System.out.println("   go quit help");
+        parser.showCommands();
     }
 
     /**
@@ -168,12 +172,10 @@ public class Game {
             System.out.println("There is no door!");
         } else {
             currentRoom = nextRoom;
-            
+
             System.out.println(currentRoom.getLongDescription());
         }
     }
-
-
 
     /**
      * Return a description of the room’s exits, for example, "Exits: north
@@ -181,20 +183,17 @@ public class Game {
      *
      * @return A description of the available exits.
      */
-    
     /*public String getExitString() 
     {
         
     }
-    */
-            
-     /**
+     */
+    /**
      * "Quit" was entered. Check the rest of the command to see whether we
      * really quit the game.
      *
      * @return true, if this command quits the game, false otherwise.
      */
-
     private boolean quit(Command command) {
         if (command.hasSecondWord()) {
             System.out.println("Quit what?");
